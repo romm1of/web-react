@@ -13,6 +13,16 @@ import Gif from "../../assets/img/gif.gif";
 
 const items = [
   {
+    src: "video2.mp4",
+    video: true,
+    key: 5,
+  },
+  {
+    src: "video.mp4",
+    video: true,
+    key: 6,
+  },
+  {
     src: SlideImage1,
     header: "NEW JAGUAR F-PACE SVR",
     paragraph:
@@ -40,11 +50,6 @@ const items = [
       "We’d like to reassure you that despite lockdowns, our Retailers remain operational.",
     btnText: "FIND OUT MORE",
     key: 3,
-  },
-  {
-    src: "video.mp4",
-    video: true,
-    key: 5,
   },
 ];
 

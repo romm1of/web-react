@@ -6,6 +6,7 @@ import Cart from "../../components/Cart";
 import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
 import NavigationBar from "./Navbar.styled";
 import Logo from "../../assets/logo.png";
+import ItemDetailsLayout from "../../containers/Layout/ItemDetailsLayout";
 
 class Navbar extends React.Component {
   render() {
@@ -66,6 +67,7 @@ class Navbar extends React.Component {
           <Route exact path="/browse" component={Catalog}></Route>
           <Route exact path="/cart" component={Cart}></Route>
           <Route exact path="/" component={Home}></Route>
+          <Route exact path="/car" component={ItemDetailsLayout}></Route>
         </Switch>
       </BrowserRouter>
     );

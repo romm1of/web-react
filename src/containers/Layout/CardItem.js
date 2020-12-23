@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const CardItemBody = ({ img, title, year, price }) => {
   return (
@@ -13,15 +14,22 @@ const CardItemBody = ({ img, title, year, price }) => {
         </Card.Text>
         <hr />
         <Card.Text>OTR Price From £{numberWithCommas(price)}</Card.Text>
-        <Button variant="danger">Learn More</Button>
+        <Link
+          exact
+          to={{
+            pathname: "/car",
+            state: { img, title, year, price },
+          }}
+        >
+          <Button variant="danger">Learn More</Button>
+        </Link>
       </Card.Body>
     </Card>
   );
 };
 
 function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
 
 export default CardItemBody;

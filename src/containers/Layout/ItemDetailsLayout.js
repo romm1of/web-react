@@ -2,9 +2,17 @@ import React from "react";
 import { Container, Row, Col, Media, CardImg, Card } from "reactstrap";
 import { Image, Button, DropdownButton, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { actionCreators } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 
 const ItemDetailsLayout = (props) => {
-  const { title, price, img, year } = props.location.state;
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (item) => {
+    dispatch(actionCreators.addToList(item));
+  };
+
+  const { title, price, img, year, id } = props.location.state;
   return (
     <div className="pt-5 mb-5">
       <Container className="mt-5 pt-5">
@@ -40,7 +48,14 @@ const ItemDetailsLayout = (props) => {
                     Go Back
                   </Button>
                 </Link>
-                <Button variant="danger">Add To Cart</Button>
+                <Button
+                  variant="danger"
+                  onClick={() =>
+                    handleAddToCart({ title, price, img, year, id })
+                  }
+                >
+                  Add To Cart
+                </Button>
               </Row>
             </Row>
           </Col>

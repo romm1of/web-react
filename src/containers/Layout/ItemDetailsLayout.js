@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Media, CardImg, Card } from "reactstrap";
-import { Image, Button, DropdownButton, Dropdown } from "react-bootstrap";
+import {
+  Image,
+  Button,
+  DropdownButton,
+  Dropdown,
+  Toast,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { actionCreators } from "../../redux/actions";
 import { useDispatch } from "react-redux";
@@ -8,13 +14,24 @@ import { useDispatch } from "react-redux";
 const ItemDetailsLayout = (props) => {
   const dispatch = useDispatch();
 
+  const [showB, setShowB] = useState(false);
+
+  const toggleShowB = () => setShowB(!showB);
+
   const handleAddToCart = (item) => {
     dispatch(actionCreators.addToList(item));
+    toggleShowB();
   };
 
   const { title, price, img, year, id } = props.location.state;
   return (
     <div className="pt-5 mb-5">
+      <Row className="justify-content-end mr-5 mt-5">
+        <Toast onClose={toggleShowB} show={showB}>
+          <Toast.Header ></Toast.Header>
+          <Toast.Body>Added to Cart!</Toast.Body>
+        </Toast>
+      </Row>
       <Container className="mt-5 pt-5">
         <Row className=" align-content-around mb-5">
           <Container style={{ maxHeight: "500px", maxWidth: "450px" }}>

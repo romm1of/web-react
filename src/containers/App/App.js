@@ -1,5 +1,3 @@
-import Home from "../../components/Home";
-// import HomeLayout from "../../containers/Layout/HomeLayout";
 import Navbar from "../Nav/Navbar";
 import FooterStyled from "../Footer/Footer";
 import "./App.css";

@@ -3,10 +3,12 @@ import { Container, Nav, NavItem, Row, NavbarText } from "reactstrap";
 import Home from "../../components/Home";
 import Catalog from "../../components/Catalog";
 import Cart from "../../components/Cart";
-import { BrowserRouter, Switch, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Switch, Route, NavLink, Link } from "react-router-dom";
 import NavigationBar from "./Navbar.styled";
 import Logo from "../../assets/logo.png";
 import ItemDetailsLayout from "../../containers/Layout/ItemDetailsLayout";
+import Checkout from "../../components/Checkout";
+import SuccessCart from "../../components/SuccessCart";
 
 class Navbar extends React.Component {
   render() {
@@ -15,14 +17,18 @@ class Navbar extends React.Component {
         <Row className=" fixed-top" style={{ backgroundColor: "white" }}>
           <Container>
             <Row className=" justify-content-between mb-3">
-              <img
-                className=" align-self-center mx-5"
-                src={Logo}
-                style={{
-                  width: "75px",
-                  height: "75px",
-                }}
-              />
+              <Link exact to="/">
+                <a href="/">
+                  <img
+                    className=" align-self-center mx-5"
+                    src={Logo}
+                    style={{
+                      width: "75px",
+                      height: "75px",
+                    }}
+                  />
+                </a>
+              </Link>
               <NavigationBar>
                 <NavItem>
                   <NavLink
@@ -68,6 +74,12 @@ class Navbar extends React.Component {
           <Route exact path="/cart" component={Cart}></Route>
           <Route exact path="/" component={Home}></Route>
           <Route exact path="/car" component={ItemDetailsLayout}></Route>
+          <Route exact path="/cart/checkout" component={Checkout}></Route>
+          <Route
+            exact
+            path="/cart/checkout/success"
+            component={SuccessCart}
+          ></Route>
         </Switch>
       </BrowserRouter>
     );

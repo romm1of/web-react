@@ -1,34 +1,33 @@
 import React from "react";
+import { Button, Container } from "react-bootstrap";
+import { Link, useHistory } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { Container, Button, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { actionCreators } from "../redux/actions";
-import { useDispatch } from "react-redux";
-import { history } from "../history/History";
 
-const Checkout = () => {
-  let history = useHistory();
-
-  const dispatch = useDispatch();
-
-  const handleSuccess = () => {
-    history.push("/cart/checkout/success");
-    dispatch(actionCreators.clearItems());
+const Signup = (props) => {
+  const history = useHistory();
+  const handleAuthentication = () => {
+    localStorage.setItem("access_token", "mock_token");
+    props.setAuth(true);
   };
 
+  const handleSubmit = () => {
+    history.push("/");
+  };
   return (
-    <Container className="pt-5 mt-5 justify-content-center">
-      <Row className="justify-content-center">
-        <h3>Checkout</h3>
-      </Row>
+    <Container
+      className="pt-5 mt-5 pb-5"
+      style={{
+        maxWidth: "400px",
+      }}
+    >
       <Formik
         initialValues={{
           firstName: "",
           lastName: "",
           email: "",
-          phone: "",
+          password: "",
+          confirmPassword: "",
         }}
         validationSchema={Yup.object().shape({
           firstName: Yup.string().required("First Name is required"),
@@ -36,28 +35,27 @@ const Checkout = () => {
           email: Yup.string()
             .email("Email is invalid")
             .required("Email is required"),
-          phone: Yup.string()
-            .matches(new RegExp("[0-9]{10}"))
-            .required("Phone number is required"),
+          password: Yup.string().required("Password is required"),
+          confirmPassword: Yup.string()
+            .required("Please confirm your password")
+            .when("password", {
+              is: (password) =>
+                password && password.length > 0 ? true : false,
+              then: Yup.string().oneOf(
+                [Yup.ref("password")],
+                "Password doesn't match"
+              ),
+            }),
         })}
-        onSubmit={handleSuccess}
+        onSubmit={handleSubmit}
         render={({ errors, status, touched }) => (
-          <Form
-            className="justify-content-between"
-            style={
-              {
-                //   flex: "0 10%"
-              }
-            }
-          >
+          <Form>
+            <h3>Registration</h3>
             <div className="form-group">
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="email">First Name</label>
               <Field
                 name="firstName"
                 type="text"
-                style={{
-                  width: "100%",
-                }}
                 className={
                   "form-control" +
                   (errors.firstName && touched.firstName ? " is-invalid" : "")
@@ -85,11 +83,12 @@ const Checkout = () => {
                 className="invalid-feedback"
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="email">Email</label>
               <Field
                 name="email"
-                type="text"
+                type="email"
                 className={
                   "form-control" +
                   (errors.email && touched.email ? " is-invalid" : "")
@@ -101,43 +100,53 @@ const Checkout = () => {
                 className="invalid-feedback"
               />
             </div>
+
             <div className="form-group">
-              <label htmlFor="phone">Phone</label>
+              <label htmlFor="password">Password</label>
               <Field
-                name="phone"
-                type="text"
+                name="password"
+                type="password"
                 className={
                   "form-control" +
-                  (errors.phone && touched.phone ? " is-invalid" : "")
+                  (errors.password && touched.password ? " is-invalid" : "")
                 }
               />
               <ErrorMessage
-                name="phone"
+                name="password"
                 component="div"
                 className="invalid-feedback"
               />
             </div>
             <div className="form-group">
-              <label htmlFor="address">Address</label>
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <Field
-                name="address"
-                type="text"
+                name="confirmPassword"
+                type="password"
                 className={
                   "form-control" +
-                  (errors.address && touched.address ? " is-invalid" : "")
+                  (errors.confirmPassword && touched.confirmPassword ? " is-invalid" : "")
                 }
               />
               <ErrorMessage
-                name="address"
+                name="confirmPassword"
                 component="div"
                 className="invalid-feedback"
               />
             </div>
-            <div className="form-group">
-              <Button type="submit" variant="danger" className="mr-2">
-                Submit
-              </Button>
-            </div>
+
+            <button
+              type="submit"
+              className="btn btn-dark btn-lg btn-block"
+              onClick={handleAuthentication}
+            >
+              Register
+            </button>
+            <p className="forgot-password text-right">
+              Already registered?
+              <Link exact to="/login">
+                <a href="/login"> Log In</a>
+              </Link>
+            </p>
           </Form>
         )}
       />
@@ -145,4 +154,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default Signup;

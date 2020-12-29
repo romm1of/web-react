@@ -1,21 +1,16 @@
-import Navbar from "../Nav/Navbar";
-import FooterStyled from "../Footer/Footer";
-import "./App.css";
-import Body from "./App.styled";
-import { Provider } from "react-redux";
-import reducer from "../../redux/reducers";
-import { createStore } from "redux";
-
-const store = createStore(reducer);
+import PublicApp from "./PublicApp";
+import { useState } from "react";
+import {
+  Switch,
+  UnauthenticatedRoute,
+  AuthenticatedRoute,
+} from "react-router-dom";
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <Body>
-        <Navbar />
-        <FooterStyled />
-      </Body>
-    </Provider>
+    <div>
+      <PublicApp />
+    </div>
   );
 };
 

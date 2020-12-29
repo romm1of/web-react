@@ -14,9 +14,9 @@ import { useDispatch } from "react-redux";
 const ItemDetailsLayout = (props) => {
   const dispatch = useDispatch();
 
-  const [showB, setShowB] = useState(false);
+  const [showAdd2CartToast, setAdd2CartToast] = useState(false);
 
-  const toggleShowB = () => setShowB(!showB);
+  const toggleShowB = () => setAdd2CartToast(!showAdd2CartToast);
 
   const handleAddToCart = (item) => {
     dispatch(actionCreators.addToList(item));
@@ -27,7 +27,7 @@ const ItemDetailsLayout = (props) => {
   return (
     <div className="pt-5 mb-5">
       <Row className="justify-content-end mr-5 mt-5">
-        <Toast onClose={toggleShowB} show={showB}>
+        <Toast onClose={toggleShowB} show={showAdd2CartToast}>
           <Toast.Header ></Toast.Header>
           <Toast.Body>Added to Cart!</Toast.Body>
         </Toast>
